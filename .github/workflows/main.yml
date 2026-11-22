@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: adam-client
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,6 +23,8 @@ jobs:
 
       - name: Set up Gradle (with caching)
         uses: gradle/actions/setup-gradle@v4
+        with:
+          build-root-directory: adam-client
 
       - name: Build
         run: |
@@ -31,6 +36,6 @@ jobs:
         with:
           name: adam-client-jar
           path: |
-            build/libs/*.jar
-            !build/libs/*-sources.jar
+            adam-client/build/libs/*.jar
+            !adam-client/build/libs/*-sources.jar
           if-no-files-found: error
